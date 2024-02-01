@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import OpenAI from "openai";
 import Header from "../../components/Header/Header";
+import Articles from "../../components/Articles/Articles";
 import "./MainPage.scss";
 
 function MainPage() {
@@ -8,6 +9,8 @@ function MainPage() {
 
   const [answer, setAnswer] = useState("");
   console.log("answer", answer);
+
+  const[question, setQuestion] = useState("")
 
   const [history, setHistory] = useState([])
   console.log("history: ", history)
@@ -24,9 +27,20 @@ function MainPage() {
 
   const handleReset = (event) =>{
     event.preventDefault();
-    event.target.question.value = ""
+    setQuestion("")
     setAnswer("");
   }
+
+  const handleClearHistory = (event) =>{
+    event.preventDefault();
+    setHistory([])
+  }
+
+  // const handleHistoryClick = (index) => {
+  //   const selectedHistory = history[index];
+  //   setQuestion(selectedHistory.question);
+  //   setAnswer(selectedHistory.answer);
+  // }
 
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPEN_AI_KEY,
@@ -59,12 +73,18 @@ function MainPage() {
         messages: [
           {
             role: "system",
-            content: "Summarize the prompt in 3 words or less. Make it sentence case, no period at the end",
+            content: "Summarize the prompt in 3 words or less. Make it sentence case. Do not include period at the end of the phrase. ",
           },
 
           { role: "user", content: prompt },
         ],
       });
+
+      const historyItem = {
+        question: prompt,
+        answer: response.choices[0].message.content,
+      };
+
       setHistory((prevHistory)=>[...prevHistory, response.choices[0].message.content]);
     } catch (error) {
       console.error("Error fetching answers:", error);
@@ -84,6 +104,8 @@ function MainPage() {
                 className="questions"
                 placeholder="Enter your question here"
                 name="question"
+                value={question}      
+                onChange={(event)=> setQuestion(event.target.value)}
               ></textarea>
             </div>
             <div>
@@ -109,13 +131,19 @@ function MainPage() {
           <div className="history">
             <ul>
               {history.map((item, index)=> (
-                <li key={index}>{item}</li>
+                <li key={index}
+                // onClick={()=>handleHistoryClick(index)}
+                className="history-item"
+                >{item}</li>
               ))}
             </ul>
           </div>
-          <button className="button__clear">Clear history</button>
+          <button className="button__clear"
+          onClick={handleClearHistory}
+          >Clear history</button>
         </section>
       </main>
+      <Articles />
     </>
   );
 }
