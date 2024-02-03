@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Map.scss";
+import "./MapPage.scss";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -11,7 +11,7 @@ import axios from "axios";
 
 const mapApi = process.env.REACT_APP_MAP_KEY;
 
-export default function Map() {
+export default function MapPage() {
   const apiBE = `http://localhost:5000/`;
 
   const { isLoaded } = useJsApiLoader({
@@ -26,8 +26,8 @@ export default function Map() {
     setLocation(event.target.inputLocation.value);
   };
 
-  axios.get(`${apiBE}?location=${encodeURIComponent('-33.8670522,151.1957362')}`)
-  .then((response) => console.log("map: ", response.data))
+  axios.get(`${apiBE}map?location=${encodeURIComponent('-33.8670522,151.1957362')}`)
+  .then((response) => console.log("map: ", response.data.results))
   .catch(error => console.log(error));
 
 
