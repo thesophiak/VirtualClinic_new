@@ -12,8 +12,8 @@ function MainPage() {
     <>
       <Header />
       <Advice />
-      <Articles />
-      <Map /> 
+     
+      {/* <Map />  */}
     </>
   );
 }
