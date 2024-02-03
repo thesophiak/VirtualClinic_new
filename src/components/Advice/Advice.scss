@@ -1,27 +1,32 @@
 .main-section{
   display: flex;
-  width: 1000px;
+  width: 700px;
   margin: auto;
+  background-color: rgba(251, 240, 236, 0.651);
+
 }
 
 .section-left{
-  border: red 1px solid;
+  // border: red 1px solid;
   width: 80%;
   padding: 2rem;
 }
 
 .section-right{
-  border: purple 1px solid;
+  // border: purple 1px solid;
   width: 20%;
   padding: 2rem;
+}
+
+.button-go{
+  background-color: white;
 }
 
 button{
   width: 100%;
   padding: 1rem;
   margin: 1rem 0;
-  background-color: aliceblue;
-  border:none;
+ 
   color: rgb(37, 37, 37)
 }
 
@@ -30,15 +35,25 @@ button{
 }
 
 .answer{
-  border: pink 1px solid;
+  // border: blue 1px solid;
   width: 100%;
   height: 10rem;
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(229, 234, 242);
+  border-radius:6px;
+  margin-bottom: 1rem;;
 }
 
 .history{
-  border: pink 1px solid;
   width: 100%;
   height: 20rem;
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(229, 234, 242);
+  border-radius:6px;
 }
 
 .title__question{

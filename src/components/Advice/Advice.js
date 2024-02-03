@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 
 import OpenAI from "openai";
 import "./Advice.scss";
 import axios from "axios";
 
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+
 function Advice() {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   let newQuestion = "";
   const apiBE = `http://localhost:5000/`;
 
@@ -129,28 +134,25 @@ function Advice() {
   };
   console.log("History list", historyList);
 
-// GET OLD HISTORY ITEM
-const fetchHistoryDetails = async () => {
-  try {
-    const response = await axios.get(`${apiBE}${id}`);
-    const oneHistoryItem = response.data;
-    console.log("oneHistoryItem:", oneHistoryItem);
+  // GET OLD HISTORY ITEM
+  const fetchHistoryDetails = async () => {
+    try {
+      const response = await axios.get(`${apiBE}${id}`);
+      const oneHistoryItem = response.data;
+      console.log("oneHistoryItem:", oneHistoryItem);
 
-    setQuestion(oneHistoryItem.question);
-    setAnswer(oneHistoryItem.answer);
-    
-  } catch (error) {
-    console.error("Error fetching item details:", error);
-  }
-};
+      setQuestion(oneHistoryItem.question);
+      setAnswer(oneHistoryItem.answer);
+    } catch (error) {
+      console.error("Error fetching item details:", error);
+    }
+  };
 
-
-    useEffect(() => {
-      if (id) {
-        fetchHistoryDetails();
-      }
-    }, [id]);
-
+  useEffect(() => {
+    if (id) {
+      fetchHistoryDetails();
+    }
+  }, [id]);
 
   return (
     <>
@@ -160,28 +162,51 @@ const fetchHistoryDetails = async () => {
             {/* QUESTION */}
             <label className="title__question">What is your question?</label>
             <div>
-              <textarea
+              <TextField
+                fullWidth
+                id="outlined-multiline-static"
+                label=""
+                multiline
+                rows={3}
+                placeholder="Enter your health and wellness question here"
+                color="secondary"
+              />
+
+              {/* <textarea
                 className="questions"
                 placeholder="Enter your question here"
                 name="question"
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
-              ></textarea>
+              ></textarea> */}
             </div>
             <div>
-              <button className="button__go" type="submit">
+              <Button
+                className="button-go"
+                variant="outlined"
+                color="secondary"
+                type="submit"
+              >
                 Go
-              </button>
+              </Button>
+
+              {/* <button className="button__go" type="submit">
+                Go
+              </button> */}
             </div>
           </form>
 
           {/* ANSWER */}
           <div className="title__answer">Advice from your virtual doctor</div>
-          <div className="answer">{answer}</div>
+            <div className="answer">{answer}</div>
+       
           <div>
-            <button className="button__another" onClick={handleReset}>
+            <Button variant="outlined" color="secondary" onClick={handleReset}>
+              New Question
+            </Button>
+            {/* <button className="button__another" onClick={handleReset}>
               I have another question
-            </button>
+            </button> */}
           </div>
         </section>
 
@@ -193,13 +218,21 @@ const fetchHistoryDetails = async () => {
               {[...historyList].reverse().map((item) => (
                 <li key={item.id}>
                   <Link to={`/${item.id}`}>{item.history}</Link>
-                  </li>
+                </li>
               ))}
             </ul>
           </div>
-          <button className="button__clear" onClick={handleClearHistory}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            startIcon={<DeleteIcon />}
+            onClick={handleClearHistory}
+          >
+            Delete
+          </Button>
+          {/* <button className="button__clear" onClick={handleClearHistory}>
             Clear history
-          </button>
+          </button> */}
         </section>
       </main>
     </>
