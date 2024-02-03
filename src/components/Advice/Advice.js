@@ -9,7 +9,7 @@ function Advice() {
   const { id } = useParams();
   console.log(id)
   let newQuestion = "";
-  const apiBE = `http://localhost:5000/`;
+  const apiBE = `http://localhost:5000/question/`;
 
   // useSTATE
   const [answer, setAnswer] = useState("");
