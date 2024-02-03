@@ -10,10 +10,10 @@ import axios from "axios";
 function MainPage() {
   return (
     <>
+    <div className="page-main">
       <Header />
       <Advice />
-     
-      {/* <Map />  */}
+      </div>
     </>
   );
 }
