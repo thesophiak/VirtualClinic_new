@@ -4,12 +4,13 @@ import { Link, useParams } from 'react-router-dom';
 import OpenAI from "openai";
 import "./Advice.scss";
 import axios from "axios";
+import Articles from "../Articles/Articles"
 
 function Advice() {
   const { id } = useParams();
   console.log(id)
   let newQuestion = "";
-  const apiBE = `http://localhost:5000/`;
+  const apiBE = `http://localhost:5000/question/`;
 
   // useSTATE
   const [answer, setAnswer] = useState("");
@@ -80,7 +81,7 @@ function Advice() {
         messages: [
           {
             role: "system",
-            content: `You are doctor and you are talking from the perspective of a ${person}. The answer should give reasons for why this is happening and how to treat it. Limit the response to 200 characters`,
+            content: `You are doctor and you are talking from the perspective of a ${person}. The answer should give reasons for why this is happening and how to treat it. Limit the response to 200 characters. Space out the response in multiple paragraphs with minimum 2 lines between each paragraph`,
           },
 
           { role: "user", content: prompt },
@@ -127,7 +128,6 @@ function Advice() {
       console.error("Error fetching history list:", error);
     }
   };
-  console.log("History list", historyList);
 
 // GET OLD HISTORY ITEM
 const fetchHistoryDetails = async () => {
@@ -151,6 +151,7 @@ const fetchHistoryDetails = async () => {
       }
     }, [id]);
 
+    console.log("history:", history)
 
   return (
     <>
@@ -202,6 +203,7 @@ const fetchHistoryDetails = async () => {
           </button>
         </section>
       </main>
+      {/* <Articles history={history}/> */}
     </>
   );
 }
