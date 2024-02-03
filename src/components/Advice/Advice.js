@@ -80,7 +80,7 @@ function Advice() {
         messages: [
           {
             role: "system",
-            content: `You are doctor and you are talking from the perspective of a ${person}. The answer should give reasons for why this is happening and how to treat it. Limit the response to 200 characters`,
+            content: `You are doctor and you are talking from the perspective of a ${person}. The answer should give reasons for why this is happening and how to treat it. Limit the response to 500 characters. Space out the response in multiple paragraphs with minimum 2 lines between each paragraph`,
           },
 
           { role: "user", content: prompt },
