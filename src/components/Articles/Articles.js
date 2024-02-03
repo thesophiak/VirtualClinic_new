@@ -11,7 +11,7 @@ function Articles({ history }) {
 
   console.log("article topic", history);
 
-  const [articles, setArticles] = useState("");
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchArticles = async () => {

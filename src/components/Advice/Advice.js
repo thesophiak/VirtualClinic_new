@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 
 import OpenAI from "openai";
 import "./Advice.scss";
 import axios from "axios";
-import Articles from "../Articles/Articles"
+import Articles from "../Articles/Articles";
 
 function Advice() {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   let newQuestion = "";
   const apiBE = `http://localhost:5000/question/`;
 
@@ -129,35 +129,36 @@ function Advice() {
     }
   };
 
-// GET OLD HISTORY ITEM
-const fetchHistoryDetails = async () => {
-  try {
-    const response = await axios.get(`${apiBE}${id}`);
-    const oneHistoryItem = response.data;
-    console.log("oneHistoryItem:", oneHistoryItem);
+  // GET OLD HISTORY ITEM
+  const fetchHistoryDetails = async () => {
+    try {
+      const response = await axios.get(`${apiBE}${id}`);
+      const oneHistoryItem = response.data;
+      console.log("oneHistoryItem:", oneHistoryItem);
 
-    setQuestion(oneHistoryItem.question);
-    setAnswer(oneHistoryItem.answer);
-    
-  } catch (error) {
-    console.error("Error fetching item details:", error);
-  }
-};
+      setQuestion(oneHistoryItem.question);
+      setAnswer(oneHistoryItem.answer);
+      setHistory(oneHistoryItem.history);
+    } catch (error) {
+      console.error("Error fetching item details:", error);
+    }
+  };
 
+  useEffect(() => {
+    if (id) {
+      fetchHistoryDetails();
+    }
+  }, [id]);
 
-    useEffect(() => {
-      if (id) {
-        fetchHistoryDetails();
-      }
-    }, [id]);
-
-    console.log("history:", history)
+  console.log("history:", history);
 
   return (
     <>
-      <main className="main-section">
+      <main className="advice-section">
         <section className="section-left">
-          <form className="form" onSubmit={handleSubmit}>
+          <h1 className="advice-section__title">Advice Section</h1>
+
+          <form className="advice-section__form" onSubmit={handleSubmit}>
             {/* QUESTION */}
             <label className="title__question">What is your question?</label>
             <div>
@@ -187,14 +188,14 @@ const fetchHistoryDetails = async () => {
         </section>
 
         {/* HISTORY */}
-        <section className="section-right">
+        <section className="section-right advice-section__history">
           <div className="title__history">Question history</div>
           <div className="history">
             <ul>
               {[...historyList].reverse().map((item) => (
                 <li key={item.id}>
                   <Link to={`/${item.id}`}>{item.history}</Link>
-                  </li>
+                </li>
               ))}
             </ul>
           </div>
@@ -203,7 +204,7 @@ const fetchHistoryDetails = async () => {
           </button>
         </section>
       </main>
-      <Articles history={history}/>
+      <Articles history={history} />
     </>
   );
 }

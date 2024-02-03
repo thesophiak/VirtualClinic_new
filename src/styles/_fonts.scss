@@ -1,0 +1,37 @@
+
+// @font-face {
+//   font-family: "Futura";
+//   src: url("../assets/fonts/futura/FuturaStdBook.otf") format("truetype");
+//   font-weight: 400;
+//   font-style: normal;
+// } 
+
+// @font-face {
+//   font-family: "Futura";
+//   src: url("../assets/fonts/futura/FuturaStdHeavy.otf") format("truetype");
+//   font-weight: 600;
+//   font-style: normal;
+// } 
+
+/* // FONT FACES // */
+
+@font-face {
+  font-family: "Avenir";
+
+  src: url("../assets/fonts/AvenirNextLTPro.ttf") format("ttf");
+  src: url("../assets/fonts/AvenirNextLTPro-Regular.otf") format("truetype");
+  // src: url("../assets/Font/AvenirNextLTPro-Regular.woff") format("woff");
+  // src: url("../assets/Font/AvenirNextLTPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: "Avenir";
+  src: url("../assets/fonts/AvenirNextLTProBold.ttf") format("ttf");
+  src: url("../assets/fonts/AvenirNextLTPro-Bold.otf") format("truetype");
+  // src: url("../assets/Font/AvenirNextLTPro-Bold.woff") format("woff");
+  // src: url("../assets/Font/AvenirNextLTPro-Bold.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+} 
