@@ -1,0 +1,38 @@
+.articles-section {
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.article-card {
+  border: 1px solid #ddd; // Light grey border
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px;
+  flex-basis: calc(33.333% - 20px); // 3 columns, accounting for margins
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); // Subtle shadow
+
+  &__title {
+    font-size: 18px;
+    margin-top: 0;
+  }
+
+  &__abstract {
+    font-size: 14px;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: #666;
+  }
+}

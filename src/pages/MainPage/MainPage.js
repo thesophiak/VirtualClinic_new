@@ -12,8 +12,6 @@ function MainPage() {
     <>
       <Header />
       <Advice />
-     
-      {/* <Map />  */}
     </>
   );
 }
