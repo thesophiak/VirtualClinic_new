@@ -5,6 +5,10 @@ import "./Advice.scss";
 import axios from "axios";
 import Modal from "../Modal/Modal";
 import Articles from "../Articles/Articles";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
+import { ClockLoader } from "react-spinners/ClockLoader";
 
 function Advice() {
   const { id } = useParams();
@@ -18,12 +22,14 @@ function Advice() {
   const [history, setHistory] = useState("");
   const [historyList, setHistoryList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   // BUTTONS
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let person = "parrot";
-
+    let person = "kind trained professional";
+    setLoading(true);
+    setAnswer("")
     newQuestion = event.target.question.value;
     console.log("new Qustion:", newQuestion);
 
@@ -82,12 +88,13 @@ function Advice() {
         messages: [
           {
             role: "system",
-            content: `You are doctor and you are talking from the perspective of a ${person}. The answer should give reasons for why this is happening and how to treat it. Limit the response to 150 characters. Space out the response in multiple paragraphs with minimum 2 lines between each paragraph`,
+            content: `You are doctor and you are talking from the perspective of a ${person}. The answer needs to give 3 paragraphs. First paragraph explains why this is happening. The second paragraph explains how to treat it. The third paragraph explains when this is serious enough to go see a doctor. Limit each paragraph to 150 characters. Space out the response with 2 lines between each paragraph. Add a label to each paragraph.`,
           },
 
           { role: "user", content: prompt },
         ],
       });
+      setLoading(false);
       return response.choices[0].message.content;
     } catch (error) {
       console.error("Error fetching answers:", error);
@@ -193,18 +200,22 @@ function Advice() {
           </form>
 
           {/* ANSWER */}
+          <SkeletonTheme  baseColor="#ffefe2" highlightColor="#FAFFFF">
           <div className="section-answer">
             <div className="title__answer">Advice from your virtual doctor</div>
-            <div className="answer">{answer}</div>
+            <div className="answer">
+              {loading && <p><Skeleton count={3} borderRadius={10} duration={1.5}/></p>}
+              {answer}</div>
             <div>
               <button className="button__new" onClick={handleReset}>
                 New Question
               </button>
             </div>
             <button className="button__map" onClick={() => setOpenModal(true)}>
-              <div>Find a doctor</div>
+              <div>Find a Doctor</div>
             </button>
           </div>
+          </SkeletonTheme>
         </section>
 
         {/* HISTORY */}
@@ -220,7 +231,7 @@ function Advice() {
             </ul>
           </div>
           <button className="button__clear" onClick={handleClearHistory}>
-            Clear
+            Clear All
           </button>
         </section>
       </main>
