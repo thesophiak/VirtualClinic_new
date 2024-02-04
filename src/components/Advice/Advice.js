@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import OpenAI from "openai";
 import "./Advice.scss";
 import axios from "axios";
+import Modal from "../Modal/Modal";
 import Articles from "../Articles/Articles";
 
 function Advice() {
@@ -17,6 +17,7 @@ function Advice() {
   const [question, setQuestion] = useState("");
   const [history, setHistory] = useState("");
   const [historyList, setHistoryList] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   // BUTTONS
   const handleSubmit = async (event) => {
@@ -154,14 +155,26 @@ function Advice() {
 
   return (
     <>
+    {openModal && (
+    <div className="for-map-modal active">
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        className="map-modal"
+      />
+      <div className="backdrop" onClick={() => setOpenModal(false)}></div>
+    </div>
+  )}
+
       <main className="advice-section">
         <section className="section-left">
-          <h1 className="advice-section__title">Advice Section</h1>
+          {/* <h1 className="advice-section__title">Advice Section</h1> */}
 
           <form className="advice-section__form" onSubmit={handleSubmit}>
             {/* QUESTION */}
             <label className="title__question">What is your question?</label>
-            <div>
+            <div className="question-input-button-container">
+            <div className="question-textarea">
               <textarea
                 className="questions"
                 placeholder="Enter your question here"
@@ -170,19 +183,26 @@ function Advice() {
                 onChange={(event) => setQuestion(event.target.value)}
               ></textarea>
             </div>
+
             <div>
               <button className="button__go" type="submit">
                 Go
               </button>
             </div>
+            </div>
           </form>
 
           {/* ANSWER */}
-          <div className="title__answer">Advice from your virtual doctor</div>
-          <div className="answer">{answer}</div>
-          <div>
-            <button className="button__another" onClick={handleReset}>
-              I have another question
+          <div className="section-answer">
+            <div className="title__answer">Advice from your virtual doctor</div>
+            <div className="answer">{answer}</div>
+            <div>
+              <button className="button__new" onClick={handleReset}>
+                New Question
+              </button>
+            </div>
+            <button className="button__map" onClick={() => setOpenModal(true)}>
+              <div>Find a doctor</div>
             </button>
           </div>
         </section>
@@ -191,16 +211,16 @@ function Advice() {
         <section className="section-right advice-section__history">
           <div className="title__history">Question history</div>
           <div className="history">
-            <ul>
+            <ul className="history-list">
               {[...historyList].reverse().map((item) => (
-                <li key={item.id}>
+                <li className="history-item" key={item.id}>
                   <Link to={`/${item.id}`}>{item.history}</Link>
                 </li>
               ))}
             </ul>
           </div>
           <button className="button__clear" onClick={handleClearHistory}>
-            Clear history
+            Clear
           </button>
         </section>
       </main>
