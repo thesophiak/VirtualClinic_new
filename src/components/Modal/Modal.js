@@ -1,4 +1,4 @@
-import "./Modal.scss"
+import "./Modal.scss";
 import { useState, useEffect } from "react";
 import {
   GoogleMap,
@@ -8,11 +8,10 @@ import {
   Autocomplete,
 } from "@react-google-maps/api";
 import axios from "axios";
-import closeIcon from "../../assets/icons/close-24px.svg"
-import starIcon from "../../assets/icons/star.svg"
+import closeIcon from "../../assets/icons/close-24px.svg";
+import starIcon from "../../assets/icons/star.svg";
 
-export default function Modal({ open, onClose }){
-
+export default function Modal({ open, onClose }) {
   const mapApi = process.env.REACT_APP_MAP_KEY;
   const apiBE = `http://localhost:5000/`;
 
@@ -72,53 +71,64 @@ export default function Modal({ open, onClose }){
     return <>Loading ...</>;
   }
 
-  if(!open) return null;
+  if (!open) return null;
 
-
-  return(
+  return (
     <>
-  
-    <div className="map-section">
-      <img onClick={onClose} className="close-modal"
-      src={closeIcon} alt="home icon" />
-      <h1 className="map-section__title">Find the nearest doctor</h1>
-      <form className="map-form"
-      onSubmit={handleSubmit}>
-        <label className="map-label"
-        >Enter your address to find the closest doctor to you.</label>
-      <div className="input-button-container">
-        <Autocomplete>
-          <input className="map-input"
-          type="text" name="inputLocation"></input>
-        </Autocomplete>
-       
-        <button className="button-map" type="submit">Load Map</button>
-        </div>
-      </form>
-      
-      <section className="map-container1">
-      <div className="map">
-        <iframe className="map-iframe"
-          width="400"
-          height="300"
-          style={{ border: 0 }}
-          loading="lazy"
-          src={`https://www.google.com/maps/embed/v1/place?key=${mapApi}&q=${location}`}
-        ></iframe>
-      </div>
-      <div className="clinics">
-        <ul className="clinic-list">
-          {clinics.map((clinic, index) => (
-            <li className="clinic-list-item" key={index}>
-              <div className="clinic-name">{clinic.name}</div>
-              <div>{clinic.rating}<img className="star-icon" src={starIcon} alt="Star icon" /></div>
-              <div>{clinic.vicinity}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      </section>
+      <div className="map-section">
+        <img
+          onClick={onClose}
+          className="close-modal"
+          src={closeIcon}
+          alt="home icon"
+        />
+        <h1 className="map-section__title">Find the nearest doctor</h1>
+        <form className="map-form" onSubmit={handleSubmit}>
+          <label className="map-label">
+            Enter your address to find the closest doctor to you.
+          </label>
+          <div className="input-button-container">
+            <Autocomplete>
+              <input
+                className="map-input"
+                type="text"
+                name="inputLocation"
+              ></input>
+            </Autocomplete>
+
+            <button className="button-map" type="submit">
+              Load Map
+            </button>
+          </div>
+        </form>
+
+        <section className="map-container1">
+          <div className="map">
+            <iframe
+              className="map-iframe"
+              // width="400"
+              // height="300"
+              // style={{ border: 0 }}
+              loading="lazy"
+              src={`https://www.google.com/maps/embed/v1/place?key=${mapApi}&q=${location}`}
+            ></iframe>
+          </div>
+          <div className="clinics">
+            <ul className="clinic-list">
+              {clinics.map((clinic, index) => (
+                <li className="clinic-list-item" key={index}>
+                  <div className="clinic-name">{clinic.name}</div>
+                  <div>
+                    {clinic.rating}
+                    <img className="star-icon" src={starIcon} alt="Star icon" />
+                  </div>
+                  <div>{clinic.vicinity}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </div>
     </>
-  )
+  );
 }

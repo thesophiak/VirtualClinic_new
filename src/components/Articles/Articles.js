@@ -12,7 +12,8 @@ function Articles({ history }) {
   console.log("article topic", history);
 
   const [articles, setArticles] = useState([]);
-
+  console.log("articles: ", articles)
+  
   useEffect(() => {
     const fetchArticles = async () => {
       const response = await axios.get(
