@@ -1,61 +1,260 @@
-.main-section{
+@use "../../styles/fonts" as *;
+@use "../../styles/global" as *;
+
+.advice-section {
   display: flex;
-  max-width: 700px;
+  position: relative;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__form {
+    padding: 15px;
+  }
+
+  &__history {
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__question,
+  &__answer {
+    // Style the question and answer sections
+    margin-bottom: 10px;
+  }
+}
+
+.main-section {
+  display: flex;
+  width: 1000px;
   margin: auto;
 }
 
-.section-left{
-  border: red 1px solid;
-  width: 80%;
+.section-left {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 75%;
   padding: 2rem;
 }
 
-.section-right{
-  border: purple 1px solid;
-  width: 20%;
+.section-right {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 25%;
   padding: 2rem;
 }
 
-button{
-  width: 100%;
-  padding: 1rem;
-  margin: 1rem 0;
-  background-color: aliceblue;
-  border:none;
-  color: rgb(37, 37, 37)
-}
-
-.form__text{
+.form__text {
   width: 100%;
 }
 
-.answer{
-  border: pink 1px solid;
-  width: 100%;
-  height: 10rem;
+.section-answer {
+  padding: 15px;
 }
 
-.history{
-  border: pink 1px solid;
-  width: 100%;
-  height: 20rem;
+.answer {
+  height: 15rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
-.title__question{
+.history {
+  width: 100%;
+  height: 28rem;
+  overflow-y: auto;
+}
+
+.history-list {
+  list-style-type: none;
+}
+
+.history-item {
+  color: black;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.title__question {
   font-size: 1.2rem;
 }
 
-.title__answer{
+.title__answer {
   font-size: 1.2rem;
   padding-bottom: 1rem;
-
 }
 
-.title__history{
+.title__history {
   font-size: 1.2rem;
-  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
 }
 
-.question{
+.question {
   margin: 1rem 0;
+}
+.question-textarea {
+  width: 100%;
+}
+
+.questions {
+  width: 100%;
+  max-height: 150px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  border-radius: 8px;
+  resize: vertical;
+  overflow-y: auto;
+  font-size: 1rem;
+  &:focus {
+    outline: none;
+    border-color: #212020;
+  }
+}
+
+.question-input-button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.button__go {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  text-align: center;
+  text-decoration: none;
+  border-width: 0px;
+  text-shadow: none;
+  border-radius: 100px;
+  color: #ffefe2;
+  border: solid 2px #212020;
+  background-color: #212020;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover {
+    color: #212120;
+    background-color: #ffefe2;
+  }
+}
+
+.button__new {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
+  text-align: center;
+  text-decoration: none;
+  border-width: 0px;
+  text-shadow: none;
+  border-radius: 100px;
+  color: #212120;
+  border: solid 2px #212020;
+  background-color: #ffefe2;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover {
+    color: #ffefe2;
+    background-color: #212020;
+  }
+}
+
+.button__clear {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 2rem 0;
+  text-align: center;
+  text-decoration: none;
+  border-width: 0px;
+  text-shadow: none;
+  border-radius: 50px;
+  color: #ffefe2;
+  border: solid 2px #504d4d;
+  background-color: #212020;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover {
+    color: #212120;
+    background-color: #ffefe2;
+  }
+}
+
+.history-item-x {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-icon {
+  height: 12px;
+  &:hover {
+    height: 15px;
+  }
+}
+
+.button__map {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  text-align: center;
+  text-decoration: none;
+  border-width: 0px;
+  text-shadow: none;
+  border-radius: 100px;
+  color: #ffefe2;
+  border: solid 2px #212020;
+  background-color: #212020;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover {
+    color: #212120;
+    background-color: #ffefe2;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.05s;
+
+  &:hover {
+    font-weight: 600;
+  }
+}
+
+.for-map-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.for-map-modal.active {
+  display: block;
+}
+
+.map-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: white;
+}
+
+.for-map-modal.active {
+  background-color: rgba($color: #212020, $alpha: 0.5);
 }
