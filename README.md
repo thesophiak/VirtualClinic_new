@@ -1,5 +1,5 @@
 # Project Title
-Personal Health Assistant
+Personal Health Assistant - Virtual Clinic
 
 ## Overview
 
