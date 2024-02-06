@@ -1,0 +1,47 @@
+@use "../../styles/fonts" as *;
+@use "../../styles/global" as *;
+
+.welcome{
+  margin-bottom: 1.5rem;
+}
+
+.welcome-title{
+  color: #757575;
+  font-size: 1.2rem;
+  width: 700px;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.welcome-text{
+  color: #757575;
+  font-size: 1.2rem;
+  width: 700px;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.welcome-p{
+  margin-top: .5rem;
+}
+
+.button-start{
+  width: 700px;
+  padding: 0.8rem;
+  margin: 2rem 7rem;
+  text-align: center;
+  text-decoration: none;
+  border-width: 0px;
+  text-shadow: none;
+  border-radius: 50px;
+  color: #ffefe2;
+  border: solid 2px #504d4d;
+  background-color: #212020;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.5s;
+  &:hover {
+    color: #212120;
+    background-color: #ffefe2;
+  }
+}

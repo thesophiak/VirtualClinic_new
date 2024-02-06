@@ -1,19 +1,25 @@
 import "./Header.scss";
-
+import homeIcon from "../../assets/icons/home.svg"
+import { Link } from 'react-router-dom'
 
 function Header() {
+  return (
+    <>
+      <section className="medical-service-header">
 
-  return(
-<>
-<section class="medical-service-header">
-    <div class="container">
-        <h1 class="title">Your Trusted Medical Service</h1>
-        <p class="subtitle">Providing expert care for your health and well-being</p>
-    </div>
-</section>
-</>
-
-  )
+        <div className="container">
+        <div className="home-title-icon">
+        <Link to="/welcome"> <img src={homeIcon} alt="home icon" className="home-icon" /></Link>
+        
+          <h1 className="title">Your Trusted Virtual Clinic</h1>
+          </div>
+          <p className="subtitle">
+            Providing expert* care for your health and well-being
+          </p>
+        </div>
+      </section>
+    </>
+  );
 }
 
-  export default Header;
+export default Header;

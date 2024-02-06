@@ -5,14 +5,12 @@ import "./Advice.scss";
 import axios from "axios";
 import Modal from "../Modal/Modal";
 import Articles from "../Articles/Articles";
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-
-import { ClockLoader } from "react-spinners/ClockLoader";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import closeIcon from "../../assets/icons/close-24px.svg";
 
 function Advice() {
   const { id } = useParams();
-  console.log(id);
   let newQuestion = "";
   const apiBE = `http://localhost:5000/question/`;
 
@@ -21,27 +19,25 @@ function Advice() {
   const [question, setQuestion] = useState("");
   const [history, setHistory] = useState("");
   const [historyList, setHistoryList] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   // BUTTONS
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let person = "kind trained professional";
+    let person = "a caring educated professional";
     setLoading(true);
-    setAnswer("")
+    setAnswer("");
     newQuestion = event.target.question.value;
-    console.log("new Qustion:", newQuestion);
 
     const newAnswer = await getAnswer(newQuestion, person);
     const newHistory = await getHistory(newQuestion);
-
     const newDataEntry = {
       question: newQuestion,
       history: newHistory,
       answer: newAnswer,
     };
-    console.log("req bod:", newDataEntry);
 
     setQuestion(newQuestion);
     setAnswer(newAnswer);
@@ -61,6 +57,7 @@ function Advice() {
     event.preventDefault();
     setQuestion("");
     setAnswer("");
+    setArticles([]);
   };
 
   const handleClearHistory = async () => {
@@ -69,7 +66,6 @@ function Advice() {
       fetchHistoryList();
       setQuestion("");
       setAnswer("");
-      // alert("History cleared successfully");
     } catch (error) {
       console.error("Error clearing history:", error);
     }
@@ -90,7 +86,6 @@ function Advice() {
             role: "system",
             content: `You are doctor and you are talking from the perspective of a ${person}. The answer needs to give 3 paragraphs. First paragraph explains why this is happening. The second paragraph explains how to treat it. The third paragraph explains when this is serious enough to go see a doctor. Limit each paragraph to 150 characters. Space out the response with 2 lines between each paragraph. Add a label to each paragraph.`,
           },
-
           { role: "user", content: prompt },
         ],
       });
@@ -112,7 +107,6 @@ function Advice() {
             content:
               "Summarize the prompt in 3 words or less. Make it sentence case. Do not include period at the end of the phrase. ",
           },
-
           { role: "user", content: prompt },
         ],
       });
@@ -127,7 +121,6 @@ function Advice() {
   useEffect(() => {
     fetchHistoryList();
   }, []);
-
   const fetchHistoryList = async () => {
     try {
       const response = await axios.get(`${apiBE}`);
@@ -142,8 +135,6 @@ function Advice() {
     try {
       const response = await axios.get(`${apiBE}${id}`);
       const oneHistoryItem = response.data;
-      console.log("oneHistoryItem:", oneHistoryItem);
-
       setQuestion(oneHistoryItem.question);
       setAnswer(oneHistoryItem.answer);
       setHistory(oneHistoryItem.history);
@@ -158,63 +149,78 @@ function Advice() {
     }
   }, [id]);
 
-  console.log("history:", history);
+  // DELETE ONE HISTORY ITEM
+  const handleDeleteHistoryItem = async (itemId) => {
+    try {
+      await axios.delete(`${apiBE}/${itemId}`);
+      fetchHistoryList();
+    } catch (error) {
+      console.error("Error deleting history item:", error);
+    }
+  };
 
   return (
     <>
-    {openModal && (
-    <div className="for-map-modal active">
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        className="map-modal"
-      />
-      <div className="backdrop" onClick={() => setOpenModal(false)}></div>
-    </div>
-  )}
+      {openModal && (
+        <div className="for-map-modal active">
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            className="map-modal"
+          />
+          <div className="backdrop" onClick={() => setOpenModal(false)}></div>
+        </div>
+      )}
 
       <main className="advice-section">
         <section className="section-left">
-          {/* <h1 className="advice-section__title">Advice Section</h1> */}
-
           <form className="advice-section__form" onSubmit={handleSubmit}>
             {/* QUESTION */}
             <label className="title__question">What is your question?</label>
             <div className="question-input-button-container">
-            <div className="question-textarea">
-              <textarea
-                className="questions"
-                placeholder="Enter your question here"
-                name="question"
-                value={question}
-                onChange={(event) => setQuestion(event.target.value)}
-              ></textarea>
-            </div>
-
-            <div>
-              <button className="button__go" type="submit">
-                Go
-              </button>
-            </div>
+              <div className="question-textarea">
+                <textarea
+                  className="questions"
+                  placeholder="Enter your question here"
+                  name="question"
+                  value={question}
+                  onChange={(event) => setQuestion(event.target.value)}
+                ></textarea>
+              </div>
+              <div>
+                <button className="button__go" type="submit">
+                  Go
+                </button>
+              </div>
             </div>
           </form>
 
           {/* ANSWER */}
-          <SkeletonTheme  baseColor="#ffefe2" highlightColor="#FAFFFF">
-          <div className="section-answer">
-            <div className="title__answer">Advice from your virtual doctor</div>
-            <div className="answer">
-              {loading && <p><Skeleton count={3} borderRadius={10} duration={1.5}/></p>}
-              {answer}</div>
-            <div>
-              <button className="button__new" onClick={handleReset}>
-                New Question
+          <SkeletonTheme baseColor="#ffefe2" highlightColor="#FAFFFF">
+            <div className="section-answer">
+              <div className="title__answer">
+                Advice from your virtual doctor
+              </div>
+              <div className="answer">
+                {loading && (
+                  <p>
+                    <Skeleton count={3} borderRadius={10} duration={1.5} />
+                  </p>
+                )}
+                {answer}
+              </div>
+              <div>
+                <button className="button__new" onClick={handleReset}>
+                  New Question
+                </button>
+              </div>
+              <button
+                className="button__map"
+                onClick={() => setOpenModal(true)}
+              >
+                <div>Find a Doctor</div>
               </button>
             </div>
-            <button className="button__map" onClick={() => setOpenModal(true)}>
-              <div>Find a Doctor</div>
-            </button>
-          </div>
           </SkeletonTheme>
         </section>
 
@@ -225,7 +231,15 @@ function Advice() {
             <ul className="history-list">
               {[...historyList].reverse().map((item) => (
                 <li className="history-item" key={item.id}>
-                  <Link to={`/${item.id}`}>{item.history}</Link>
+                  <div className="history-item-x">
+                    <Link to={`/${item.id}`}>{item.history}</Link>
+                    <img
+                      src={closeIcon}
+                      alt="Delete"
+                      className="delete-icon"
+                      onClick={() => handleDeleteHistoryItem(item.id)}
+                    />
+                  </div>
                 </li>
               ))}
             </ul>
@@ -235,7 +249,11 @@ function Advice() {
           </button>
         </section>
       </main>
-      <Articles history={history} />
+      <Articles
+        history={history}
+        articles={articles}
+        setArticles={setArticles}
+      />
     </>
   );
 }

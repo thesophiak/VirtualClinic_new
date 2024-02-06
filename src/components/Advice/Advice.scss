@@ -1,7 +1,6 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/global" as *;
 
-
 .advice-section {
   display: flex;
   position: relative;
@@ -9,13 +8,11 @@
   &__title {
     text-align: center;
     margin-bottom: 20px;
-
   }
 
-  &__form{
+  &__form {
     padding: 15px;
   }
-
 
   &__history {
     padding: 15px;
@@ -28,6 +25,7 @@
     margin-bottom: 10px;
   }
 }
+
 .main-section {
   display: flex;
   width: 1000px;
@@ -50,7 +48,7 @@
   width: 100%;
 }
 
-.section-answer{
+.section-answer {
   padding: 15px;
 }
 
@@ -59,7 +57,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  overflow-y: auto; 
+  overflow-y: auto;
   white-space: pre-wrap;
 }
 
@@ -68,17 +66,15 @@
   height: 28rem;
   overflow-y: auto;
 }
-.history-list{
-  list-style-type: none; 
+
+.history-list {
+  list-style-type: none;
 }
 
-.history-item{
-  color: black; // Sets text color to black
+.history-item {
+  color: black;
   text-decoration: none;
   margin-bottom: 10px;
-  &:hover {
-    // text-decoration: underline
-  }
 }
 
 .title__question {
@@ -92,43 +88,41 @@
 
 .title__history {
   font-size: 1.2rem;
-  margin-bottom: .5rem;
-  padding-bottom: .5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
   border-bottom: 2px solid #e0e0e0;
 }
 
 .question {
   margin: 1rem 0;
 }
-.question-textarea{
+.question-textarea {
   width: 100%;
 }
 
-.questions { 
-  width: 100%; 
-  // min-width: 30rem;
+.questions {
+  width: 100%;
   max-height: 150px;
   padding: 10px;
   border: 1px solid #ddd;
   margin-top: 10px;
   border-radius: 8px;
-  resize: vertical; 
-  overflow-y: auto; 
-
+  resize: vertical;
+  overflow-y: auto;
+  font-size: 1rem;
   &:focus {
-    outline: none; 
-    border-color: #212020; 
+    outline: none;
+    border-color: #212020;
   }
 }
 
-.question-input-button-container{
+.question-input-button-container {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
 
 .button__go {
-  // width: 100%;
   padding: 0.8rem;
   margin: 1rem 0;
   text-align: center;
@@ -151,7 +145,8 @@
 .button__new {
   width: 100%;
   padding: 0.8rem;
-  margin: 1rem 0;
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
   text-align: center;
   text-decoration: none;
   border-width: 0px;
@@ -190,7 +185,20 @@
   }
 }
 
-.button__map{
+.history-item-x {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-icon {
+  height: 12px;
+  &:hover {
+    height: 15px;
+  }
+}
+
+.button__map {
   width: 100%;
   padding: 0.8rem;
   margin: 1rem 0;
@@ -218,8 +226,6 @@ a {
 
   &:hover {
     font-weight: 600;
-    // text-decoration: underline
-
   }
 }
 
@@ -236,26 +242,19 @@ a {
   z-index: 1000;
 }
 
-// Show modal and backdrop when active
 .for-map-modal.active {
   display: block;
 }
-
 
 .map-modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000; 
-    background-color: white; 
-  // padding: 20px;
-  // border-radius: 8px;
-  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.782);
+  z-index: 1000;
+  background-color: white;
 }
-
 
 .for-map-modal.active {
   background-color: rgba($color: #212020, $alpha: 0.5);
-
 }
