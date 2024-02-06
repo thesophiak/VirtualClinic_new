@@ -1,70 +1,152 @@
-# Getting Started with Create React App
+# Project Title
+Personal Health Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Get fast and easy health advice without any jargon.
 
-In the project directory, you can run:
+### Problem
 
-### `npm start`
+Health advice and consultation can be hard to obtain. Many do not have a family doctor, walk-in clinics and EMR have long wait times, and the information available online can be overwhelming to sift through. Your personal health assistant is designed to give you health and wellness advice anywhere and anytime, in easy-to-understand terms. You can ask any question related to your health and wellness and get a fast and actionable reply. No more wait times or confusing jargon.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### User Profile
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Adults and teenagers
+- Individuals with questions about their health or wellness
+- Individuals who don't want to sift through the internet to find answers to their questions
+- Individuals with some to no education or experience with healthcare
 
-### `npm test`
+### Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Phase 1 
+1- As a user, I want to be able to enter my health or wellness question using language that's natural to me.
 
-### `npm run build`
+2- As a user, I want to get a response to my question that's easy to understand and explains to me what could be causing my problem and what I should do to get better.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3- As a user, I want to know if the advice I'm getting is given by a medical professional
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4- As a user, I want to have a list of my previous questions and a way to navigate back to them
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5- As a user, I want to be able to delete my question history.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Phase 2
+6- As a user, I want an easy way to find a a real/human doctor to speak to
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Phase 3
+7- As a user, I want to be able to read and learn more about my health or wellness topic
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Implementation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Tech Stack
 
-## Learn More
+- HTML/CSS
+- JavaScript
+- React
+- Express
+- Client libraries: 
+    - react
+    - react-router
+    - axios
+- Server libraries:
+    - express
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### APIs
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ChatGPT - GET request for health and wellness information
 
-### Code Splitting
+JSON file - POST request to store an array for the search history
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Google Maps - GET request to identify nearby clinics based on location
 
-### Analyzing the Bundle Size
+NYT - GET request to find and display articles related to the user's question
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Sitemap
 
-### Making a Progressive Web App
+- Home page (shows question and answer, question history, related articles)
+- Map page or modal (shows searchable map)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Mockups
 
-### Advanced Configuration
+### phase 1 mock-up
+phase1.png
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### phase 1-4 mock-up
+phase1_4.png
 
-### Deployment
+### Data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+tbd
 
-### `npm run build` fails to minify
+### Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ChatGPT GET/answer
+- Gets answer to the health question using a prespecified prompt for the potential cause of the problem, how it can be treated, and when is the right time to see a doctor
+Response: text, details tbd
+
+ChatGPT GET/questionShort
+- Gets a 1-3 word summary of the question. This will be used for the search history
+Response: short text, details tbd
+
+JSON file POST/answer
+- saves all the details of the details of the question and answer
+Parameters:
+- id: answer id
+- questionFull: original question
+- answer: full answer to the question
+- questionShort: short summary of question
+
+JSON file GET/questionShort
+- populates the question history
+Response: id, questionShort
+
+JSON file GET/questionFull
+- re-populates the question and answer
+Response: id, questionFull, answer
+
+JSON file DELETE
+- erases the data in the array
+
+Google Maps GET/search
+- shows Google Maps search for the term clinic
+Response: map 
+
+NYT GET/articles
+- shows up to 6 articles related to the question of teh user.
+Response: article id, title, image, url to article
+
+
+### Auth
+
+n/a
+
+## Roadmap
+
+Phase 1 
+- Create client react project and repo
+- Create server using express and repo
+- Create JSON file with an empty array
+- Test ChatGTP API end points and responses
+- Create a low-fidelity draft of the home page (incl. question and answer fields, history display, history delete)
+- Implement home page functionality for FE, BE, and API
+- Test home page with edge cases
+- Improve FE design
+
+Phase 2
+- Test Google Maps API endpoints and responses
+- Create a low-fedility draft of the maps view (ncl. search field and map display)
+- Implement the map functionality for FE, BE, and API
+- Test with edge cases
+- Improve FE design
+
+Phase 3
+- Test NYT API endpoints and responses
+- Create a low-fedility draft of the article view (ncl. display of 6 articles)
+- Implement the map functionality for FE, BE, and API
+- Test with edge cases
+- Improve FE design
+
+
+## Nice-to-haves
+
+Phase 2 and Phase 3
