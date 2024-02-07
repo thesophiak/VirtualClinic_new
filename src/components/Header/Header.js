@@ -9,7 +9,7 @@ function Header() {
 
         <div className="container">
         <div className="home-title-icon">
-        <Link to="/welcome"> <img src={homeIcon} alt="home icon" className="home-icon" /></Link>
+        <Link to="/"> <img src={homeIcon} alt="home icon" className="home-icon" /></Link>
         
           <h1 className="title">Your Trusted Virtual Clinic</h1>
           </div>

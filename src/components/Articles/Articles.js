@@ -8,13 +8,17 @@ function Articles({ history, articles, setArticles }) {
   const articleTopicDashed = history.split(" ").join("-");
 
   useEffect(() => {
-    const fetchArticles = async () => {
-      const response = await axios.get(
-        `${urlNyt}?q=${articleTopicDashed}&api-key=${key}`
-      );
-      setArticles(response.data.response.docs);
-    };
-    fetchArticles();
+    if (history.trim() !== "") {
+      const fetchArticles = async () => {
+        const response = await axios.get(
+          `${urlNyt}?q=${articleTopicDashed}&api-key=${key}`
+        );
+        setArticles(response.data.response.docs);
+      };
+      fetchArticles();
+    } else {
+      setArticles([]);
+    }
   }, [history, setArticles]);
 
   return (

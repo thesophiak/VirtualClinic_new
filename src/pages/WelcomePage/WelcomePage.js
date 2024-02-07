@@ -7,7 +7,7 @@ export default function WelcomePage() {
   const navigate = useNavigate();
 
   const handleClick = ()=>{
-    navigate("/")
+    navigate("/main")
   }
 
   return (
