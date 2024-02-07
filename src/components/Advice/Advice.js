@@ -232,7 +232,7 @@ function Advice() {
               {[...historyList].reverse().map((item) => (
                 <li className="history-item" key={item.id}>
                   <div className="history-item-x">
-                    <Link to={`/${item.id}`}>{item.history}</Link>
+                    <Link to={`/main/${item.id}`}>{item.history}</Link>
                     <img
                       src={closeIcon}
                       alt="Delete"
